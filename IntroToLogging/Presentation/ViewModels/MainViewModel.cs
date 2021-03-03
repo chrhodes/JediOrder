@@ -1,9 +1,11 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 using Prism.Commands;
 
+using VNC;
 using VNC.Core.Mvvm;
+
+using System;
 
 namespace IntroToLogging.Presentation.ViewModels
 {
@@ -13,9 +15,13 @@ namespace IntroToLogging.Presentation.ViewModels
 
         public MainViewModel()
         {
+            Int64 startTicks = Log.CONSTRUCTOR("Enter", Common.LOG_APPNAME);
+
             Button1Command = new DelegateCommand(Button1Execute);
             Button2Command = new DelegateCommand(Button2Execute);
             Button3Command = new DelegateCommand(Button3Execute);
+
+            Log.CONSTRUCTOR("Exit", Common.LOG_APPNAME, startTicks);
         }
 
         #endregion
@@ -75,7 +81,7 @@ namespace IntroToLogging.Presentation.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private string _answer = "???";
 
         public string Answer
@@ -100,16 +106,26 @@ namespace IntroToLogging.Presentation.ViewModels
 
         private void Button1Execute()
         {
+            Int64 startTicks = Log.Info("Enter", Common.LOG_APPNAME);
+
             Message = "Button1 Clicked";
+
+            Log.Info("End", Common.LOG_APPNAME, startTicks);
         }
 
         private void Button2Execute()
         {
+            Int64 startTicks = Log.Debug("Enter", Common.LOG_APPNAME);
+
             Message = "Button2 Clicked";
+
+            Log.Debug("End", Common.LOG_APPNAME, startTicks);
         }
 
         private void Button3Execute()
         {
+            Int64 startTicks = Log.Trace("Enter", Common.LOG_APPNAME);
+
             Message = "Button3 Clicked";
 
             try
@@ -118,35 +134,59 @@ namespace IntroToLogging.Presentation.ViewModels
             }
             catch (Exception ex)
             {
-                Message = "EXCEPTION !!!";
+                Log.Error(ex, Common.LOG_APPNAME);
+                Log.Error(ex, "BOOM");
             }
+
+            Log.Trace("End", Common.LOG_APPNAME, startTicks);
         }
 
         private void method1()
         {
+            Int64 startTicks = Log.Trace1("Enter", Common.LOG_APPNAME);
+
             method2();
+
+            Log.Trace1("End", Common.LOG_APPNAME, startTicks);
         }
 
         private void method2()
         {
+            Int64 startTicks = Log.Trace2("Enter", Common.LOG_APPNAME);
+
             method3();
+
+            Log.Trace2("End", Common.LOG_APPNAME, startTicks);
         }
 
         private void method3()
         {
+            Int64 startTicks = Log.Trace3("Enter", Common.LOG_APPNAME);
+
             method4();
+
+            Log.Trace3("End", Common.LOG_APPNAME, startTicks);
         }
 
         private void method4()
         {
+            Int64 startTicks = Log.Trace4("Enter", Common.LOG_APPNAME);
+
             method5();
+
+            Log.Trace4("End", Common.LOG_APPNAME, startTicks);
         }
 
         private void method5()
         {
+            Int64 startTicks = Log.Trace5("Enter", Common.LOG_APPNAME);
+
+
             int answer = Numerator / Denominator;
 
             Answer = answer.ToString();
+
+            Log.Trace5("End", Common.LOG_APPNAME, startTicks);
         }
 
         #endregion
