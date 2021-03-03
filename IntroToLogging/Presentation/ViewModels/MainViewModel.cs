@@ -106,11 +106,11 @@ namespace IntroToLogging.Presentation.ViewModels
 
         private void Button1Execute()
         {
-            Int64 startTicks = Log.Info("Enter", Common.LOG_APPNAME);
+            Int64 startTicks = Log.Info("Enter", "WHOISTHIS");
 
             Message = "Button1 Clicked";
 
-            Log.Info("End", Common.LOG_APPNAME, startTicks);
+            Log.Info("End", "WHOISTHIS", startTicks);
         }
 
         private void Button2Execute()
