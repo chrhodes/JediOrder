@@ -1,6 +1,8 @@
 ﻿
 using IntroToLogging.Presentation.ViewModels;
 
+using VNC;
+
 namespace IntroToLogging.Presentation.Views
 {
     public partial class Main     {
@@ -10,6 +12,7 @@ namespace IntroToLogging.Presentation.Views
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+            Log.Info("Hello From Logging", Common.LOG_APPNAME);
         }
     }
 }
